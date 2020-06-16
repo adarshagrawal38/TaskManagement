@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TaskManagement:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TaskManagement_jar</output-path>
+    <root id="archive" name="TaskManagement.jar">
+      <element id="module-output" name="TaskManagement" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../TeacherHelper/Jars/fontawesomefx-8.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../TeacherHelper/Jars/jfoenix-8.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../TeacherHelper/Jars/ExcelReadWrite/poi-3.17.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../TeacherHelper/Jars/mysql-connector-java-5.1.44.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../TeacherHelper/Jars/ExcelReadWrite/ooxml-schemas-1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../TeacherHelper/Jars/ExcelReadWrite/commons-collections4-4.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../TeacherHelper/Jars/ExcelReadWrite/poi-ooxml-3.17.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../TeacherHelper/Jars/ExcelReadWrite/xmlbeans-2.5.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../TeacherHelper/Jars/ExcelReadWrite/commons-collections4-4.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

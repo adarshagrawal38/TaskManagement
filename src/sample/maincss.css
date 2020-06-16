@@ -1,0 +1,216 @@
+*{
+
+    -fx-primary-color:  #0C2431;
+        -fx-secondary-color:  #E4EBF3;
+
+    -fx-gray-color: EEF1F6;
+    -fx-white-color: #FFF;
+    -fx-blue : #28B2FE;
+    -fx-toast-color: #000000;
+    -fx-selected-color: #c8d6e5;
+    -fx-button-color: #455D75;
+}
+.root {
+-fx-background-color: -fx-gray-color;
+}
+
+.jfx-text-field{
+    -fx-font-family: "Roboto";
+    -fx-font-size: 12;
+    -fx-background-color: -fx-white-color;
+    -fx-radius: 20px ;
+    -fx-padding: 5 10 5 5;
+    -fx-background-radius:20em;
+    -fx-pref-height: 40px;
+    -jfx-focus-color:  -fx-secondary-color;
+    -jfx-unfocus-color: -fx-secondary-color;
+    -fx-text-fill: -fx-primary-color;
+}
+
+.jfx-password-field{
+    -fx-font-family: "Roboto";
+    -fx-font-size: 12;
+    -fx-background-color: -fx-white-color;
+    -fx-radius: 20px ;
+    -fx-padding: 5 10 5 5;
+    -fx-background-radius:20em;
+    -fx-pref-height: 40px;
+    -jfx-focus-color:  -fx-secondary-color;
+    -jfx-unfocus-color: -fx-secondary-color;
+    -fx-text-fill: -fx-primary-color;
+}
+.bold-label-small {
+-fx-text-fill:-fx-blue;
+    -fx-font-family: "Segoi Ui";
+    -fx-font-size: 18px;
+    -fx-font-weight: bold
+}
+.jfx-combo-box
+{
+    -fx-background-color: -fx-white-color;
+    -fx-background-radius: 202em;
+     -fx-font-family: "Roboto";
+     -fx-font-size: 12;
+     -fx-text-fill: -fx-primary-color;
+     -jfx-focus-color:  -fx-secondary-color;
+         -jfx-unfocus-color: -fx-secondary-color;
+    -fx-text-fill: -fx-primary-color;
+    -fx-padding: 5 10 5 5;
+    -fx-cell-size: 1.66667em;
+}
+.jfx-snackbar-toast{
+    -fx-text-fill: -fx-secondary-color;
+}
+
+.jfx-snackbar-content{
+    -fx-background-color: -fx-primary-color;
+    -fx-border-radius: 3em;
+    -fx-background-radius: 5em;
+
+}
+.jfx-combo-box-popup .list-view
+ {
+   -fx-background-color: -fx-primary-color;
+   -fx-background-insets: 0, 1;
+ }
+/*Navigation Vbox height and width*/
+
+.primary-background {
+
+-fx-background-color:  -fx-primary-color;
+}
+
+.bold-label {
+-fx-text-fill: -fx-white-color;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 24px;
+    -fx-font-weight: bold
+}
+.blue-label {
+-fx-text-fill: -fx-blue;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 24px;
+}
+
+.navigationVBox{
+-fx-pref-width: 30;
+-fx-pref-height: 500;
+}
+
+/*
+Tab pane design
+*/
+
+.tab {
+-fx-pref-width: 350;
+-fx-pref-height: 60;
+-fx-background-color : -fx-secondary-color;
+}
+.tab-header-background {
+-fx-background-color: -fx-secondary-color;
+}
+.button:hover{
+-fx-background-color: -fx-selected-color;
+-fx-border-color: transparent;
+}
+
+/* Tab pane design end*/
+
+.button:hover{
+-fx-background-color: -fx-selected-color;
+-fx-border-color: transparent;
+}
+
+.buttonsize{
+-fx-pref-width: 244;
+-fx-pref-height:46;
+}
+
+.secondary-color{
+-fx-background-color: -fx-secondary-color;
+}
+.dark-background{
+    -fx-background-color: -fx-primary-color;
+}
+.light-background{
+    -fx-background-color: -fx-gray-color;
+}
+
+.button{
+    -fx-border-color: -fx-button-color;
+    -fx-background-color: -fx-button-color;
+    -fx-background-radius: 2em;
+    -fx-border-radius: 2em;
+    -fx-text-fill: -fx-white-color;
+    -fx-font-family: "Segoi UI";
+    -fx-font-size: 12px;
+     -fx-pref-height: 46px;
+}
+.navButton {
+-fx-border-color: -fx-primary-color;
+    -fx-background-color: -fx-primary-color;
+    -fx-background-radius: 2em;
+    -fx-border-radius: 2em;
+    -fx-text-fill: -fx-white-color;
+    -fx-font-family: "Segoi UI";
+    -fx-font-size: 12px;
+    -fx-pref-height: 46px;
+}
+.headings{
+    -fx-text-fill: -fx-white-color;
+}
+
+.scroll-pane {
+    -fx-background-color: -fx-secondary-color;
+}
+
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: -fx-primary-color;
+    -fx-background-radius: 5em;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: black;
+}
+
+
+.list-view:focused .list-cell:filled:focused:selected {
+    -fx-background-color: -fx-secondary-color, -fx-white-color, -fx-primary-color;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background: -fx-accent;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: -fx-primary-color;
+    -fx-text-fill: -fx-white-color;
+}
+.list-view .list-cell {
+    -fx-background-color: -fx-secondary-color;
+    -fx-text-fill: white;
+}
+.list-view  {
+    -fx-border-color: -fx-secondary-color;
+}
+
+
+.jfx-rippler {
+    -jfx-rippler-fill: -fx-primary-color;
+}
+
+.btn-dialog {
+-fx-background-color: -fx-button-color;
+-fx-border-color: -fx-button-color;
+-fx-background-radius: 100;
+-fx-font-size:20;
+}
+
+

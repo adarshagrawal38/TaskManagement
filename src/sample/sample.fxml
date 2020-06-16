@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="stack_pane" alignment="center" stylesheets="@maincss.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <AnchorPane fx:id="anchorPane_resize" prefHeight="800.0" prefWidth="1200.0" styleClass="secondary-color">
+      <children>
+         <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="primary-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="600.0" AnchorPane.topAnchor="0.0">
+            <children>
+               <Label layoutX="259.0" layoutY="232.0" styleClass="bold-label" text="LogIn" />
+               <Label layoutX="246.0" layoutY="358.0" styleClass="blue-label" text="Welcome Back" />
+            </children>
+         </AnchorPane>
+         <AnchorPane layoutX="600.0" prefHeight="725.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+               <VBox layoutX="51.0" layoutY="182.0" prefHeight="393.0" prefWidth="499.0" spacing="20.0" AnchorPane.rightAnchor="50.0">
+                  <padding>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  </padding>
+                  <children>
+                     <JFXTextField fx:id="userName_txt" focusColor="#161617" prefHeight="51.0" prefWidth="459.0" promptText="UserName" />
+                     <JFXPasswordField fx:id="pass_txt" promptText="Password" />
+                     <Label fx:id="forgotPass_label" onMouseClicked="#forgotPasswordAction" styleClass="bold-label-small" text="Forgot Password" />
+                     <HBox prefHeight="64.0" prefWidth="459.0" spacing="20.0">
+                        <children>
+                           <Button mnemonicParsing="false" onAction="#logInAction" text="Log In" />
+                           <Button mnemonicParsing="false" onAction="#registerAction" text="Sign up" />
+                        </children>
+                     </HBox>
+                  </children>
+               </VBox>
+            </children>
+         </AnchorPane>
+      </children></AnchorPane>
+</StackPane>
