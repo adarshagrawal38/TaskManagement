@@ -1,6 +1,7 @@
 package sample;
 
 import Helpers.DatabaseHelper;
+import Helpers.FileHelper;
 import Helpers.ImportTaskHelper;
 import Helpers.TableHelper;
 import Models.TaskModel;
@@ -8,12 +9,12 @@ import Models.WorkBookModel;
 import com.jfoenix.controls.JFXListView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class ImportController extends Base {
@@ -21,12 +22,24 @@ public class ImportController extends Base {
     private VBox tableVbox;
 
     @FXML
+    protected Label userName_txt;
+
+    @FXML
+    private Label taskWarningLabel;
+
+    @FXML
     private JFXListView<HBox> listView;
     ArrayList<ArrayList<String>> tableRowData = new ArrayList<>();
     HBox colHeader_Hbox;
+    String taskIdProblem = "";
 
     public void initialize() {
         checkMaximize();
+        String userName = "";
+        FileHelper fileHelper = new FileHelper();
+        userName = USERNAME;
+        userName_txt.setText(userName);
+
         ArrayList<String> colHeader = new ArrayList<>();
         //Task No.	Code	File Name	Assigner	Work	Year	Due Date	Period	Priority	Task Status	Assigned To	Current Task	Updated Status
 
@@ -61,6 +74,12 @@ public class ImportController extends Base {
             tableRowData.clear();
             listView.getItems().clear();
             listView.getItems().add(colHeader_Hbox);
+
+            if (taskIdProblem.length() > 0) {
+                /*There is some task which have problem*/
+                taskWarningLabel.setVisible(true);
+                taskWarningLabel.setText("Task with id " + taskIdProblem + " have invalid username");
+            }
 
         }
 
@@ -106,24 +125,35 @@ public class ImportController extends Base {
 
         }
         userString = userString.toLowerCase();
-
         for (String  s: uniqueTaskId) {
-            ArrayList<ArrayList<String>> taskData = fillterRowData(uniqueTaskId.get(0));
+
+            ArrayList<ArrayList<String>> taskData = fillterRowData(s);
             ArrayList<String> taskModelData = getSubList(1, 8, taskData.get(0));
             TaskModel taskModel = new TaskModel(taskModelData);
             ArrayList<WorkBookModel> workBookModels = new ArrayList<>();
 
+            boolean isUserPresent = true;
             for (ArrayList<String> stageModelList: taskData) {
                 ArrayList<String> stageModelData = getSubList(9, 11, stageModelList);
                 /*Check User name*/
-                String stageAssignedTo = stageModelList.get(0).toLowerCase();
-
-                taskModel.setInsertInDatabase(userString.contains(stageAssignedTo));
                 WorkBookModel workBookModel = new WorkBookModel(stageModelData, taskModel.getTaskId());
+                String stageAssignedTo = workBookModel.getAssigenedTo();
+
+                if (userString.contains(stageAssignedTo)) {
+                    taskModel.setInsertInDatabase(false);
+                    isUserPresent = false;
+                    break;
+                }
                 workBookModels.add(workBookModel);
             }
             taskModel.setTaskWorkBook(workBookModels);
-            databaseHelper.createTask(taskModel, true);
+            if (isUserPresent) {
+                databaseHelper.createTask(taskModel, true);
+            }else {
+                taskIdProblem+=s+",";
+                displayToastMessage("TaskId " + s + " contains invalid user");
+            }
+
         }
 
     }

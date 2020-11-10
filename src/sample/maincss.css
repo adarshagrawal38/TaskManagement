@@ -47,16 +47,31 @@
 }
 .jfx-combo-box
 {
-    -fx-background-color: -fx-white-color;
+-fx-text-fill: black;
+    -fx-background-color: white;
     -fx-background-radius: 202em;
      -fx-font-family: "Roboto";
      -fx-font-size: 12;
-     -fx-text-fill: -fx-primary-color;
-     -jfx-focus-color:  -fx-secondary-color;
-         -jfx-unfocus-color: -fx-secondary-color;
-    -fx-text-fill: -fx-primary-color;
+      -jfx-unfocus-color: -fx-primary-color;
+      -jfx-focus-color:  -fx-secondary-color;
+           -jfx-unfocus-color: -fx-secondary-color;
+
     -fx-padding: 5 10 5 5;
     -fx-cell-size: 1.66667em;
+}
+.jfx-check-box  {
+-fx-font-family: "Roboto";
+    -fx-font-size: 14;
+}
+.jfx-combo-box-popup .list-view
+ {
+   -fx-background-color: -fx-primary-color;
+   -fx-background-insets: 0, 1;
+ }
+.combo-box .combo-box-popup .list-view, .combo-box .combo-box-popup .list-cell {
+
+    -fx-text-fill:  -fx-primary-color ;
+    -fx-font-family: "Calibri" ;
 }
 .jfx-snackbar-toast{
     -fx-text-fill: -fx-secondary-color;
@@ -68,11 +83,7 @@
     -fx-background-radius: 5em;
 
 }
-.jfx-combo-box-popup .list-view
- {
-   -fx-background-color: -fx-primary-color;
-   -fx-background-insets: 0, 1;
- }
+
 /*Navigation Vbox height and width*/
 
 .primary-background {
@@ -184,7 +195,7 @@ Tab pane design
 
 
 .list-view:focused .list-cell:filled:focused:selected {
-    -fx-background-color: -fx-secondary-color, -fx-white-color, -fx-primary-color;
+    -fx-background-color: -fx-white-color;
     -fx-background-insets: 0, 1, 2;
     -fx-background: -fx-accent;
 }
@@ -212,5 +223,22 @@ Tab pane design
 -fx-background-radius: 100;
 -fx-font-size:20;
 }
+.jfx-date-picker .date-picker-popup .calendar-grid .day-cell:hover,
+.jfx-date-picker .data-picker-list-cell:hover {
+-fx-background-color: -fx-secondary-color;
+-fx-cursor: hand;
+}
+.jfx-date-picker {
+ -jfx-focus-color:  -fx-secondary-color;
+ -jfx-default-color:  -fx-primary-color;
+}
+.jfx-text-area {
+ -fx-font-family: "Roboto";
+    -fx-font-size: 16px;
+}
 
 
+.tab{
+-fx-background-color:   -fx-primary-color;}
+.jfx-tab-pane{
+-fx-background-color:   -fx-primary-color;}

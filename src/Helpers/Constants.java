@@ -9,8 +9,8 @@ public class Constants {
     public static final int COLUMN_WIDTH = 70;
     public static final int DESCRIPTION_WIDTH = 180;
     public static final int COLOUMN_HBOX_SPACING = 20;
-    public static final int DESCRIPTION_INDEX = 2;
-    public static final int CODE_INDEX = 1;
+    public static final int DESCRIPTION_INDEX = 1;
+    public static final int CODE_INDEX = 0;
     public static final int LIST_DEPTH = 1;
     public static final int BELOW_TEXT_FEILD_HBOX_WIDTH = 100;
     public static final int TABLE_HEIGHT = 300;
@@ -25,7 +25,7 @@ public class Constants {
     public static final String SALES = "S";
     public static final String PURCHASE = "P";
 
-    public static final double table_Hbox_height = 40;
+    public static final double table_Hbox_height = 60;
 
     public static final int LABEL_SIZE = 12;
 
@@ -47,8 +47,13 @@ public class Constants {
     public static final String JFXPROGRESS_BAR = "-jfx-box-border: #455D75;  -jfx-accent: #0C2431;";
 
     public static final String TABLE_ROW_COLOR_COMPLETED = "-fx-background-color: #707070;-fx-border-color: #707070;  -fx-background-radius: 30em;";
+    public static final String TABLE_ROW_COLOR_PRIORITY_YES = "-fx-background-color: #52708F;-fx-border-color: #52708F;  -fx-background-radius: 30em;";
 
-    public static final String COMPLETED = "Finished";
+    public static final String TABLE_ROW_COLOR_TODAY_DATE = "-fx-background-color: #FF003D;-fx-border-color: #FF003D;  -fx-background-radius: 30em;";
+
+    public static final String TABLE_ROW_COLOR_DUE_DATE_LESS_THEN_7 = "-fx-background-color: #F14B0C;-fx-border-color: #F14B0C;  -fx-background-radius: 30em;";
+
+    public static final String COMPLETED = "Completed";
     public static final String PENDING = "Pending";
 
     public static String INVALID_INPUT = "Invalid";
@@ -56,9 +61,9 @@ public class Constants {
     public static String ADMIN = "admin";
     public static String USER = "user";
     public static String ADMIN_PASSWORD = "admin1234";
-
     public static String ICON_VIEW = "eye";
     public static String ICON_EDIT = "edit";
     public static String ICON_DELETE = "delete";
+    public static int LAST_STAGE = 1;
 
 }

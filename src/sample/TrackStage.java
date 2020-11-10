@@ -1,16 +1,18 @@
 package sample;
 
 import Helpers.*;
-import Models.TaskModel;
 import Models.WorkBookModel;
+import Models.WorkModel;
 import com.jfoenix.controls.*;
-import com.sun.org.omg.CORBA.ContextIdSeqHelper;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.image.Image;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -18,8 +20,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -50,24 +50,46 @@ public class TrackStage extends Base {
     @FXML
     private JFXListView<HBox> listView;
 
+    @FXML
+    private Label sub_work_lb;
+
+    @FXML
+    private JFXComboBox<String> user_ccmb;
+
+    @FXML
+    private JFXButton assignToUser_btn;
+
+    @FXML
+    private JFXButton addNewStageBtn;
+
     ArrayList<Integer> widthList = new ArrayList<>();
     List<WorkBookModel> tableRows = new ArrayList<>();
 
     String currentDirectory = "";
+
+    ArrayList<String> allRemarks = new ArrayList<>();
+
+    @FXML
+    protected Label userName_txt;
 
     int taskId = 1;
     String userNmae = "";
     ArrayList<String> userList;
     boolean isAdmin = false;
     String initiator = "";
+    ArrayList<String> columnHeader = new ArrayList<>();
     public void initialize() {
         checkMaximize();
+        String userName = "";
+        FileHelper fileHelper = new FileHelper();
+        userName = USERNAME;
+        userName_txt.setText(userName);
         taskId = Track_TASK_ID;
         currentDirectory = System.getProperty("user.dir");
         currentDirectory+="\\src\\sample\\";
         System.out.println("The current working directory is " + currentDirectory);
 
-        ArrayList<String> columnHeader = new ArrayList<>();
+
         columnHeader.add("Stage Num");
         columnHeader.add("Description");
         columnHeader.add("Assigned T0");
@@ -82,15 +104,20 @@ public class TrackStage extends Base {
         widthList.add(Constants.COLUMN_WIDTH);
         widthList.add(Constants.DESCRIPTION_WIDTH);
 
-        FileHelper fileHelper = new FileHelper();
-        userNmae = fileHelper.getUserName();
+
+        userNmae = USERNAME;
         isAdmin = databaseHelper.isAdmin(userNmae);
 
-        HBox columnHeader_Hbox = TableHelper.getColumnHeader(columnHeader, widthList);
-        tableVbox.getChildren().add(0, columnHeader_Hbox);
+        if (!IS_ADMIN) {
+            assignToUser_btn.setDisable(true);
+            addNewStageBtn.setDisable(true);
+        }
+
+        //tableVbox.getChildren().add(0, columnHeader_Hbox);
 
 
         userList = databaseHelper.getUsers();
+        userList.remove(USERNAME);
 
         String query = "Select * from task where task_id = " + taskId;
         System.out.println(query);
@@ -101,15 +128,16 @@ public class TrackStage extends Base {
                 filename_lb.setText(resultSet.getString("file_name"));
                 work_lb.setText(resultSet.getString("work_des"));
                 initiator = resultSet.getString("initiator");
+                sub_work_lb.setText(resultSet.getString("sub_work_des"));
+
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-
         populateListView();
+        allRemarks.addAll(databaseHelper.getRemarks());
+        user_ccmb.getItems().addAll(userList);
     }
     public void loadStageData() {
 
@@ -118,6 +146,9 @@ public class TrackStage extends Base {
     }
     @FXML
     void backAction(MouseEvent event) {
+        System.out.println("back Action");
+        BACK = true;
+        loadFrame(LocationHelper.TASK_HISTORY_SCENE);
 
     }
 
@@ -129,6 +160,9 @@ public class TrackStage extends Base {
     private void populateListView() {
         loadStageData();
         listView.getItems().clear();
+        HBox columnHeader_Hbox = TableHelper.getColumnHeader(columnHeader, widthList);
+        listView.getItems().add(columnHeader_Hbox);
+
         int index = 0;
 
         Collections.sort(tableRows, new Comparator<WorkBookModel>() {
@@ -173,6 +207,7 @@ public class TrackStage extends Base {
                 JFXButton downStageNum = ControlsHelper.getTableButton();
                 downStageNum.setGraphic(downImageView);
                 downStageNum.setId(String.valueOf(index));
+                downStageNum.setTooltip(new Tooltip("Move Stage Down"));
                 box.getChildren().add( downStageNum);
                 if (index==end)
                 downStageNum.setDisable(true);
@@ -181,10 +216,12 @@ public class TrackStage extends Base {
                 JFXButton editButton = ControlsHelper.getTableButton();
                 editButton.setId(String.valueOf(index));
                 editButton.setGraphic(editImage);
+                editButton.setTooltip(new Tooltip("Edit"));
                 box.getChildren().add(editButton);
 
                 JFXButton commentBtn = ControlsHelper.getTableButton();
                 commentBtn.setId(String.valueOf(index));
+                commentBtn.setTooltip(new Tooltip("Remarks"));
                 commentBtn.setGraphic(iconHelper.getIcon(IconHelper.ICON_COMMENT));
                 box.getChildren().add(commentBtn);
 
@@ -192,10 +229,31 @@ public class TrackStage extends Base {
                 ImageView deleteImage = iconHelper.getIcon(Constants.ICON_DELETE);
 
                 JFXButton deleteButton = ControlsHelper.getTableButton();
+                deleteButton.setTooltip(new Tooltip("Delete"));
                 deleteButton.setId(String.valueOf(index));
                 deleteButton.setGraphic(deleteImage);
+
+                JFXCheckBox checkBox = new JFXCheckBox();
+                checkBox.setSelected(workBookModel.isSelected());
+                checkBox.setStyle("-fx-border-color: #FFF");
+                checkBox.setAlignment(Pos.CENTER);
+                checkBox.setPadding(new Insets(20, 0,0,0));
+                checkBox.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        workBookModel.setSelected(checkBox.isSelected());
+
+                    }
+                });
+                box.getChildren().add(checkBox);
+
                 if (isAdmin){
                     box.getChildren().add(deleteButton);
+                }
+                if (!isAdmin) {
+                    editButton.setDisable(true);
+                    upStagenumber.setDisable(true);
+                    downStageNum.setDisable(true);
                 }
                 upStagenumber.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -286,6 +344,7 @@ public class TrackStage extends Base {
 
 
 
+
             /*
             editButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -319,8 +378,6 @@ public class TrackStage extends Base {
     @FXML
     void addStageAction(ActionEvent event) {
 
-
-
         Label label0 = new Label("Description");
         label0.setFont(new Font("Segoi UI", Constants.LABEL_SIZE));
 
@@ -339,6 +396,7 @@ public class TrackStage extends Base {
 
         JFXDatePicker dueDate = new JFXDatePicker();
         dueDate.setValue(LocalDate.now());
+        disablePreviousDate(dueDate);
 
         JFXCheckBox addToAll_cb = new JFXCheckBox("Add to all");
 
@@ -400,13 +458,17 @@ public class TrackStage extends Base {
         Label label0 = new Label("Please enter remarks");
         label0.setFont(new Font("Segoi UI", Constants.LABEL_SIZE));
 
-        JFXTextField txt = new JFXTextField();
-        txt.setPromptText("Comments");
+
+        JFXComboBox<String> remarkList = new JFXComboBox<>();
+        remarkList.setPrefWidth(300);
+        remarkList.getItems().addAll(allRemarks);
+        remarkList.setEditable(true);
+        remarkList.setPromptText("Please select or make a new remark");
 
         JFXDialogLayout layout = new JFXDialogLayout();
         layout.setHeading(new Text(""));
 
-        VBox vBox = new VBox(label0, txt);
+        VBox vBox = new VBox(label0, remarkList);
         vBox.setSpacing(20);
         layout.setBody(vBox);
 
@@ -421,7 +483,11 @@ public class TrackStage extends Base {
             @Override
             public void handle(ActionEvent event) {
 
-                String str = txt.getText();
+                String str = remarkList.getSelectionModel().getSelectedItem();
+                if (str == null) {
+                    displayToastMessage("Please select or enter remark");
+                    return;
+                }
                 int wb_id = tableRows.get(rowId).getWorkBookId();
                 String query = "update work_book set remark='"+str+ "' where wb_id = " + wb_id;
                 System.out.println(query);
@@ -493,6 +559,7 @@ public class TrackStage extends Base {
 
         JFXDatePicker dueDate = new JFXDatePicker();
         dueDate.setPromptText("New Due Date");
+        disablePreviousDate(dueDate);
 
         JFXDialogLayout layout = new JFXDialogLayout();
         layout.setHeading(new Text(""));
@@ -529,16 +596,18 @@ public class TrackStage extends Base {
 
                 if (dueDate.getValue() == null) {
                     query = "update work_book set assigned_to = '" + assignedUser + "', stage_status = '" + status + "' where wb_id = " + wb_id;
-
-
                 }else{
                     String date = DateFormatChange.changeForMatTo_DD_MM_YY(dueDate.getValue().toString());
                     query = "update work_book set assigned_to = '" + assignedUser + "', stage_status = '" + status + "', due_date = '"+date  +"' where wb_id = " + wb_id;
                     workBookModel.setDueDate(date);
                 }
-
-
                 databaseHelper.insertQuery(query);
+
+                if (!assignedUser.equalsIgnoreCase(accutualAssignedUser)) {
+                    /*Assigned to new part*/
+                    query = "update work_book set assigned_date = CURDATE()  where wb_id = " + wb_id;
+                    databaseHelper.insertQuery(query);
+                }
                 if (status.equalsIgnoreCase(Constants.COMPLETED)) {
                     query = "update work_book set completed_date = CURDATE()  where wb_id = " + wb_id;
                     databaseHelper.insertQuery(query);
@@ -552,6 +621,28 @@ public class TrackStage extends Base {
             }
         });
         dialog.show();
+
+    }
+
+    @FXML
+    void assignmentAction(ActionEvent event) {
+        String username = user_ccmb.getSelectionModel().getSelectedItem();
+        if (username != null) {
+
+            for (WorkBookModel workBookModel: tableRows) {
+
+                if (workBookModel.isSelected()) {
+                    String query = "update work_book set assigned_to = '" + username + "' where wb_id = " + workBookModel.getWorkBookId();
+                    databaseHelper.insertQuery(query);
+                }
+            }
+            displayToastMessage("Stage assigned to selected user!");
+            user_ccmb.getSelectionModel().clearSelection();
+            populateListView();
+
+        }else {
+            displayToastMessage("Please select username!");
+        }
 
     }
 

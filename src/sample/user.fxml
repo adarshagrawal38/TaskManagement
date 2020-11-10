@@ -20,58 +20,67 @@
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </padding>
                 <children>
-                    <Label styleClass="bold-label" text="Admin" />
+                    <Label fx:id="userName_txt" styleClass="bold-label" text="Admin" />
                     <Line startX="-100.0" stroke="#ebe8e8" strokeWidth="4.0" />
-                    <JFXButton fx:id="taskHistory_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Task History">
+                    <JFXButton fx:id="taskHistory_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Task">
                         <graphic>
                             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@button.png" />
+                                    <Image url="@../icons/square.png" />
                                 </image>
                             </ImageView>
                         </graphic>
                     </JFXButton>
-                    <JFXButton fx:id="myStage_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Your Stages">
+                    <JFXButton fx:id="myStage_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="My Task">
                         <graphic>
                             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@work.png" />
+                                    <Image url="@../icons/work.png" />
                                 </image>
                             </ImageView>
                         </graphic>
                     </JFXButton>
-                    <JFXButton fx:id="createTask_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Create Task">
+                    <JFXButton fx:id="user_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Masters">
                         <graphic>
                             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@square.png" />
+                                    <Image url="@../icons/person.png" />
                                 </image>
                             </ImageView>
                         </graphic>
                     </JFXButton>
-                    <JFXButton fx:id="import_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Import">
+                    <JFXButton fx:id="work_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Work">
                         <graphic>
                             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@import.png" />
+                                    <Image url="@../icons/work.png" />
                                 </image>
                             </ImageView>
                         </graphic>
                     </JFXButton>
-                    <JFXButton fx:id="user_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Users">
+                    <JFXButton fx:id="report_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Report">
                         <graphic>
                             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@person.png" />
+                                    <Image url="@../icons/seo-report.png" />
                                 </image>
                             </ImageView>
                         </graphic>
                     </JFXButton>
-                    <JFXButton fx:id="logOut_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Log Out">
+                    <JFXButton fx:id="references_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="References">
                         <graphic>
                             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
-                                    <Image url="@exit.png" />
+                                    <Image url="@../icons/Document_24px.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </JFXButton>
+                    <JFXButton fx:id="logOut_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="35.0" prefWidth="94.0" styleClass="navButton" text="Log Out">
+                        <graphic>
+                            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../icons/exit.png" />
                                 </image>
                             </ImageView>
                         </graphic>
@@ -86,7 +95,7 @@
                         </font>
                     </Label>
                     <VBox fx:id="tableVbox" layoutX="41.0" layoutY="107.0" prefHeight="88.0" prefWidth="949.0" spacing="10.0" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="107.0" />
-                    <JFXListView fx:id="listView" layoutX="49.0" layoutY="207.0" prefHeight="600.0" prefWidth="949.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="207.0" />
+                    <JFXListView fx:id="listView" layoutX="49.0" layoutY="207.0" prefHeight="600.0" prefWidth="949.0" styleClass="secondary-color" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="207.0" />
                 </children>
             </AnchorPane>
         </children></AnchorPane>

@@ -86,29 +86,34 @@ public class UpdateHelper extends DatabaseHelper {
                 rs.next();
                 id = rs.getInt("work_id");
 
+                query = "update stage set stage_num = stage_num + 1 where work_id = "+id + " and stage_num >="+stageNum;
+                //System.out.println(query);
+                insertQuery(query);
+
                 query = "INSERT INTO `stage`(`work_id`, `stage_num`, `stage_des`) VALUES("+id + ","+stageNum+", '"+description+"')";
                 //System.out.println(query);
                 insertQuery(query);
 
-                query = "update stage set stage_num = stage_num + 1 where work_id = "+id + " and stage_num >"+stageNum;
-                //System.out.println(query);
-                insertQuery(query);
             }
             for (int i=0;i<taskIds.size();i++) {
                 int new_TeskId = taskIds.get(i);
                 String new_initiator = initiators.get(i);
                 List<WorkBookModel> workBookModels = getWorkBookModel(new_TeskId);
                 int insertIndex = stageNum;
-                String query = "INSERT INTO `work_book`( `task_id`, `stage_num`, `stage_des`, `assigned_to`, `due_date`) VALUES ("+
+                String query = "update work_book set stage_num=stage_num + 1 where task_id = " + taskId + " and stage_num >="+stageNum;
+                System.out.println(query);
+                insertQuery(query);
+
+                 query = "INSERT INTO `work_book`( `task_id`, `stage_num`, `stage_des`, `assigned_to`, `due_date`) VALUES ("+
                         new_TeskId + ", " + stageNum + " ,'" +description + "', '" + new_initiator + "', '" +
                         dueDate + "')";
                 System.out.println(query);
                 insertQuery(query);
-                for (int j=stageNum-1;j<workBookModels.size();j++) {
+                /*for (int j=stageNum-1;j<workBookModels.size();j++) {
                     query = "update work_book set stage_num=stage_num + 1 where wb_id = " + workBookModels.get(j).getWorkBookId();
                     System.out.println(query);
                     insertQuery(query);
-                }
+                }*/
 
 
 

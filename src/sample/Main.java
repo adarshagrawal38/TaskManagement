@@ -35,7 +35,7 @@ public class Main extends Application {
 
     public static String USERNAME;
 
-
+    static boolean IS_ADMIN = false;
 
 
     public final int WIDTH = 1300;
@@ -45,20 +45,21 @@ public class Main extends Application {
 
         String scene = LocationHelper.LOG_IN_SCENE;
         FileHelper fileHelper = new FileHelper();
-        if (fileHelper.isLogedIn()) {
+        /*if (fileHelper.isLogedIn()) {
             USERNAME = fileHelper.getUserName();
             DatabaseHelper databaseHelper = new DatabaseHelper();
             String role = databaseHelper.getUserRole(USERNAME);
             if (role.equals(Constants.ADMIN)) {
+                IS_ADMIN = true;
                 scene = LocationHelper.TASK_HISTORY_SCENE;
             }else if (role.equals(Constants.USER)) {
-                /*load user frame*/
+                *//*load user frame*//*
                 scene = LocationHelper.USER_CURRENT_TASK;
             }
-        }
+        }*/
 
 
-        Parent root = FXMLLoader.load(getClass().getResource(scene));
+        Parent root = FXMLLoader.load(getClass().getResource(LocationHelper.LOG_IN_SCENE));
         primaryStage.setTitle("Task Management");
         //primaryStage.setMaximized(true);
         stage = primaryStage;

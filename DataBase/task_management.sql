@@ -110,10 +110,6 @@ CREATE TABLE `task` (
 -- Dumping data for table `task`
 --
 
-INSERT INTO `task` (`task_id`, `client_code`, `file_name`, `Initiator`, `work_des`, `period`, `task_priority`, `task_due_date`, `task_priority_position`, `task_status`, `created_date`, `completed_date`, `year`) VALUES
-(1, 'RKA-2002A', 'ABCDEF', 'RKA', 'ITR', '', '', '2018-07-31', 1, 'Pending', '2020-06-01', NULL, '2017-18'),
-(2, 'RKA-2002A', 'Adarsh', 'RKA', 'ITR', '', '', '2018-07-31', 2, 'Pending', '2020-06-01', NULL, '2017-18'),
-(3, 'akk', 'Ahghg', 'admin', 'Accounts', 'Q3', 'No', '2020-06-08', 3, 'Pending', '2020-06-08', NULL, '2020-21');
 
 -- --------------------------------------------------------
 
@@ -134,16 +130,6 @@ CREATE TABLE `user` (
 --
 -- Dumping data for table `user`
 --
-
-INSERT INTO `user` (`user_id`, `user_name`, `name`, `phone`, `email`, `password`, `role`) VALUES
-(1, 'a1', 'a', '8305648558', 'adars@gmail.com', 'a1', 'user'),
-(2, 'admin', 'a', '1234567890', 'd@f.bg', 'admin1234', 'admin'),
-(3, 'RKA', 'Ravi Agrawal', '8305648558', 'r@gmail.com', 'admin1234', 'admin'),
-(4, 'a', 'a', '1234567890', 'a@gmail.com', 'a', 'user'),
-(5, 'b', 'b', '1234567891', 'b@gmail.com', 'b', 'user'),
-(6, 'c', 'c', '1234567899', 'c@gmail.com', 'c', 'user'),
-(7, 'd', 'd', '1234567890', 'd@gmail.com', 'd', 'user');
-
 -- --------------------------------------------------------
 
 --
@@ -191,25 +177,6 @@ CREATE TABLE `work_book` (
 -- Dumping data for table `work_book`
 --
 
-INSERT INTO `work_book` (`wb_id`, `task_id`, `stage_num`, `stage_des`, `assigned_to`, `due_date`, `stage_status`, `completed_date`) VALUES
-(1, 1, 1, 'Follow & Receive', 'a', '2018-07-31', 'Pending', '2020-06-01'),
-(2, 1, 2, 'Prepare', 'b', '2018-07-31', 'Finished', '2020-06-01'),
-(3, 1, 3, 'Fill in Software', 'a', '2018-07-31', 'Pending', NULL),
-(4, 1, 4, 'Upload', 'RKA', '2018-07-31', 'Pending', NULL),
-(5, 1, 5, 'E-Verify / CPC Dispatch', 'RKA', '2018-07-31', 'Pending', NULL),
-(6, 1, 6, 'Billing & Approve', 'RKA', '2018-07-31', 'Pending', NULL),
-(7, 2, 1, 'Follow & Receive', 'RKA', '2018-07-31', 'Pending', NULL),
-(8, 2, 2, 'Prepare', 'RKA', '2018-07-31', 'Pending', NULL),
-(9, 2, 3, 'Fill in Software', 'RKA', '2018-07-31', 'Pending', NULL),
-(10, 2, 4, 'Upload', 'RKA', '2018-07-31', 'Pending', NULL),
-(11, 2, 5, 'E-Verify / CPC Dispatch', 'RKA', '2018-07-31', 'Pending', NULL),
-(12, 2, 6, 'Billing & Approve', 'RKA', '2018-07-31', 'Pending', NULL),
-(13, 1, 7, 'New stage', 'admin', '2020-06-01', 'Pending', NULL),
-(14, 3, 1, 'Follow & Receive', 'admin', '2020-06-08', 'Pending', NULL),
-(15, 3, 2, 'Prepare', 'admin', '2020-06-08', 'Pending', NULL),
-(16, 3, 3, 'Review', 'admin', '2020-06-08', 'Pending', NULL),
-(17, 3, 4, 'Billing', 'admin', '2020-06-08', 'Pending', NULL);
-
 --
 -- Indexes for dumped tables
 --
@@ -253,31 +220,31 @@ ALTER TABLE `work_book`
 -- AUTO_INCREMENT for table `stage`
 --
 ALTER TABLE `stage`
-  MODIFY `stage_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `stage_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `work`
 --
 ALTER TABLE `work`
-  MODIFY `work_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `work_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `work_book`
 --
 ALTER TABLE `work_book`
-  MODIFY `wb_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `wb_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

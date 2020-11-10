@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -18,7 +19,7 @@
                 <children>
                     <Label layoutX="259.0" layoutY="232.0" styleClass="bold-label" text="Register" />
                     <Label layoutX="246.0" layoutY="358.0" styleClass="blue-label" text="Please fill all details" />
-               <ImageView fitHeight="82.0" fitWidth="124.0" onMouseClicked="#backAction" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <ImageView fitHeight="35.0" fitWidth="82.0" onMouseClicked="#backAction" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <image>
                      <Image url="@return.png" />
                   </image>
@@ -34,6 +35,7 @@
                       <children>
                           <JFXTextField fx:id="userName_txt" focusColor="#161617" prefHeight="51.0" prefWidth="459.0" promptText="User Name" />
                      <JFXTextField fx:id="name_txt" focusColor="#161617" prefHeight="51.0" prefWidth="459.0" promptText="Name" />
+                     <JFXComboBox fx:id="role_cmb" prefHeight="35.0" prefWidth="459.0" promptText="Select your role" />
                      <JFXTextField fx:id="phone_txt" focusColor="#161617" prefHeight="51.0" prefWidth="459.0" promptText="Phone" />
                      <JFXTextField fx:id="email_txt" focusColor="#161617" prefHeight="51.0" prefWidth="459.0" promptText="Email" />
                           <JFXPasswordField fx:id="pass_txt" promptText="Password" />

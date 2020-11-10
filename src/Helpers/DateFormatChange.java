@@ -18,6 +18,7 @@ public class DateFormatChange {
     }
 
     public static String changeForMatTo_MM_DD_YYYY(String date) {
+        if (date == null) return "";
         String regex = "(\\d{2})-(\\d{2})-(\\d{2})";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(date);
@@ -26,17 +27,14 @@ public class DateFormatChange {
             //System.out.println("Date: " + s);
             return s;
         }
-
         return "";
     }
 
     public static String changeForMatTo_YYYY_MM_DD(String date) {
-
-
+        /*Incoming format DD/MM/YYYY*/
         String array[] = date.split("/");
         //System.out.println("Date: " +date);
-
-        String newData = "20"+array[2] + "-" + array[0] + "-" + array[1];
+        String newData = "20"+array[2] + "-" + array[1] + "-" + array[0];
         return newData;
     }
 

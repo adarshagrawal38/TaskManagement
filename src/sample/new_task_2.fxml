@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="stack_pane" alignment="center" stylesheets="@maincss.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.NewTaskController">
+    <AnchorPane fx:id="anchorPane_resize" prefHeight="677.0" prefWidth="1200.0" styleClass="secondary-color">
+        <children>
+            <VBox layoutY="2.0" prefHeight="800.0" prefWidth="105.0" spacing="10.0" styleClass="primary-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                </padding>
+                <children>
+                    <Label fx:id="userName_txt" styleClass="bold-label" text="Admin" />
+                    <Line startX="-100.0" stroke="#ebe8e8" strokeWidth="4.0" />
+                    <JFXButton fx:id="taskHistory_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Task">
+                        <graphic>
+                            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../icons/square.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </JFXButton>
+                    <JFXButton fx:id="myStage_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="My Task">
+                        <graphic>
+                            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../icons/work.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </JFXButton>
+                    <JFXButton fx:id="user_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Masters">
+                        <graphic>
+                            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../icons/person.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </JFXButton>
+                    <JFXButton fx:id="work_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Work">
+                        <graphic>
+                            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../icons/work.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </JFXButton>
+                    <JFXButton fx:id="report_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Report">
+                        <graphic>
+                            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../icons/seo-report.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </JFXButton>
+                    <JFXButton fx:id="references_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="References">
+                        <graphic>
+                            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../icons/Document_24px.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </JFXButton>
+                    <JFXButton fx:id="logOut_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="35.0" prefWidth="94.0" styleClass="navButton" text="Log Out">
+                        <graphic>
+                            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../icons/exit.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </JFXButton>
+                </children>
+            </VBox>
+            <AnchorPane layoutX="123.0" layoutY="6.0" prefHeight="677.0" prefWidth="1077.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="123.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+               <JFXTabPane fx:id="task_tabPane" layoutY="-3.0" prefHeight="65.0" prefWidth="1077.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <tabs>
+                     <Tab fx:id="creatTask_tab" text="Create Task">
+                       <content>
+                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="1077.0" styleClass="secondary-color">
+                             <Label layoutX="41.0" layoutY="42.0" text="Create New Task">
+                                 <font>
+                                     <Font size="22.0" />
+                                 </font>
+                             </Label>
+                             <VBox layoutX="41.0" layoutY="127.0" prefHeight="531.0" prefWidth="499.0" spacing="20.0" AnchorPane.leftAnchor="41.0">
+                                 <padding>
+                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                                 <children>
+                                     <JFXComboBox fx:id="work_cmb" onAction="#workSelectionAction" prefHeight="44.0" prefWidth="459.0" promptText="Work" />
+                                     <JFXComboBox fx:id="sub_work_cmb" prefHeight="35.0" prefWidth="463.0" promptText="Sub Work" />
+                                     <JFXComboBox fx:id="init_cmb" prefHeight="35.0" prefWidth="464.0" promptText="Select Initiator" />
+                                     <JFXTextField fx:id="year_txt" focusColor="#161617" prefHeight="51.0" prefWidth="459.0" promptText="Year" />
+                                     <JFXTextField fx:id="period_txt" focusColor="#161617" prefHeight="51.0" prefWidth="459.0" promptText="Period" />
+                                     <JFXDatePicker fx:id="datePicker" prefHeight="41.0" prefWidth="459.0" promptText="Due Date" />
+                                     <JFXCheckBox fx:id="priority_ckb" text="Priority">
+                                         <font>
+                                             <Font size="20.0" />
+                                         </font>
+                                     </JFXCheckBox>
+                                     <Button mnemonicParsing="false" onAction="#createTaskAction" prefWidth="462.0" text="Create task" />
+                                 </children>
+                             </VBox>
+                             <JFXTextField fx:id="fileName_txt" focusColor="#161617" layoutX="588.0" layoutY="146.0" onKeyReleased="#fillterEvent" prefHeight="51.0" prefWidth="424.0" promptText="FileName" />
+                             <JFXListView fx:id="clientList" layoutX="553.0" layoutY="204.0" prefHeight="400.0" prefWidth="459.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="553.0" AnchorPane.topAnchor="200.0" />
+                             <ImageView fitHeight="20.0" fitWidth="26.0" layoutX="553.0" layoutY="156.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                     <Image url="@../icons/search.png" />
+                                 </image>
+                             </ImageView>
+                         </AnchorPane>
+                       </content>
+                     </Tab>
+                     <Tab fx:id="assignTask_tab" text="Assign / ReAssign Task">
+                       <content>
+                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="secondary-color">
+                             <Label layoutX="41.0" layoutY="42.0" text="Assign / ReAssign Task">
+                                 <font>
+                                     <Font size="23.0" />
+                                 </font>
+                             </Label>
+                             <VBox fx:id="tableVbox" layoutX="41.0" layoutY="190.0" prefHeight="22.0" prefWidth="1026.0" spacing="10.0" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="190.0">
+                                 <children>
+                                    <JFXCheckBox fx:id="select_cb" onAction="#selectAllAction" text="Select All" />
+                                 </children></VBox>
+                             <HBox layoutX="35.0" layoutY="93.0" prefHeight="62.0" prefWidth="1007.0" spacing="20.0" AnchorPane.leftAnchor="35.0">
+                                 <children>
+                                     <JFXTextField fx:id="fillter_txt" onKeyReleased="#fillterEvent" prefWidth="138.0" promptText="Fillter" />
+                                     <JFXComboBox fx:id="user_cmb" prefHeight="42.0" prefWidth="145.0" promptText="Select User" />
+                                    <JFXComboBox fx:id="assigment_cmb" onAction="#assignMentFIllterAction" prefHeight="53.0" prefWidth="177.0" promptText="Select AssignMent Fillter" />
+                                     <JFXButton fx:id="assignment_btn" graphicTextGap="10.0" onAction="#assignmentAction" prefHeight="42.0" prefWidth="130.0" styleClass="navButton" text="Assignement">
+                                         <graphic>
+                                             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                 <image>
+                                                     <Image url="@../icons/assignment.png" />
+                                                 </image>
+                                             </ImageView>
+                                         </graphic>
+                                     </JFXButton>
+                                     <JFXButton fx:id="assignment_btn1" graphicTextGap="10.0" onAction="#openFolderAction" prefHeight="42.0" prefWidth="164.0" styleClass="navButton" text="Open Tally Folder">
+                                         <graphic>
+                                             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                 <image>
+                                                     <Image url="@../icons/Folder_24px.png" />
+                                                 </image>
+                                             </ImageView>
+                                         </graphic>
+                                     </JFXButton>
+                                 </children>
+                                 <padding>
+                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                             </HBox>
+                             <ScrollPane layoutX="41.0" layoutY="219.0" prefHeight="388.0" prefWidth="1026.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="219.0">
+                                 <content>
+                                     <VBox fx:id="tableRow_Vbox" prefHeight="509.0" prefWidth="1020.0" spacing="10.0">
+                                         <padding>
+                                             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                         </padding>
+                                     </VBox>
+                                 </content>
+                             </ScrollPane>
+                             <HBox fx:id="color_hbox" layoutX="445.0" layoutY="24.0" prefHeight="52.0" prefWidth="200.0" spacing="10.0" AnchorPane.rightAnchor="431.0" />
+                         </AnchorPane>
+                       </content>
+                     </Tab>
+                  </tabs>
+               </JFXTabPane>
+            </children>
+            </AnchorPane>
+        </children></AnchorPane>
+</StackPane>

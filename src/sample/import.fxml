@@ -20,7 +20,7 @@
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </padding>
                 <children>
-                    <Label styleClass="bold-label" text="Admin" />
+                    <Label fx:id="userName_txt" styleClass="bold-label" text="Admin" />
                     <Line startX="-100.0" stroke="#ebe8e8" strokeWidth="4.0" />
                     <JFXButton fx:id="taskHistory_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Task History">
                         <graphic>
@@ -58,20 +58,38 @@
                             </ImageView>
                         </graphic>
                     </JFXButton>
-                    <JFXButton fx:id="export_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Export">
-                        <graphic>
-                            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                <image>
-                                    <Image url="@share.png" />
-                                </image>
-                            </ImageView>
-                        </graphic>
-                    </JFXButton>
                     <JFXButton fx:id="user_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Users">
                         <graphic>
                             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
                                     <Image url="@person.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </JFXButton>
+                    <JFXButton fx:id="work_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Work">
+                        <graphic>
+                            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../icons/work.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </JFXButton>
+                    <JFXButton fx:id="client_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Client">
+                        <graphic>
+                            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../icons/support.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </JFXButton>
+                    <JFXButton fx:id="report_btn" contentDisplay="TOP" onAction="#navigationTask" prefHeight="46.0" prefWidth="94.0" styleClass="navButton" text="Report">
+                        <graphic>
+                            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../icons/seo-report.png" />
                                 </image>
                             </ImageView>
                         </graphic>
@@ -94,7 +112,14 @@
                             <Font size="29.0" />
                         </font>
                     </Label>
-                    <VBox fx:id="tableVbox" layoutX="41.0" layoutY="107.0" prefHeight="88.0" prefWidth="1005.0" spacing="10.0" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="107.0" />
+                    <VBox fx:id="tableVbox" layoutX="41.0" layoutY="107.0" prefHeight="88.0" prefWidth="1005.0" spacing="10.0" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="107.0">
+                  <children>
+                     <Label fx:id="taskWarningLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="1007.0" text="Task cant be imported with id " textFill="#eb0d0d" underline="true" visible="false">
+                        <font>
+                           <Font name="System Bold" size="19.0" />
+                        </font>
+                     </Label>
+                  </children></VBox>
                     <JFXListView fx:id="listView" layoutX="41.0" layoutY="223.0" prefHeight="539.0" prefWidth="1005.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="223.0" />
                <JFXButton graphicTextGap="10.0" layoutX="243.0" layoutY="42.0" onAction="#importAction" prefWidth="158.0" text="Import From Excel">
                   <graphic>

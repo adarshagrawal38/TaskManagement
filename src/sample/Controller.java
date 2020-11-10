@@ -32,15 +32,16 @@ public class Controller extends Base{
     public void initialize() {
         checkMaximize();
         FileHelper fileHelper = new FileHelper();
-        if (fileHelper.isLogedIn()) {
+        /*if (fileHelper.isLogedIn()) {
             USERNAME = fileHelper.getUserName();
             String role = databaseHelper.getUserRole(USERNAME);
             if (role.equals(Constants.ADMIN)) {
+                IS_ADMIN = true;
                 loadFrame(LocationHelper.TASK_HISTORY_SCENE);
             }else if (role.equals(Constants.USER)) {
-                /*load user frame*/
+                *//*load user frame*//*
             }
-        }
+        }*/
 
     }
 
@@ -59,12 +60,15 @@ public class Controller extends Base{
 
         if (!result.equals("")) {
             FileHelper fileHelper = new FileHelper();
-            fileHelper.logInUser(userName);
+            //fileHelper.logInUser(userName);
+            USERNAME = userName;
 
             if (result.equals(Constants.ADMIN)){
+                IS_ADMIN = true;
                 loadFrame(LocationHelper.TASK_HISTORY_SCENE);
             }else{
                 /*login normal user*/
+                IS_ADMIN = false;
                 loadFrame(LocationHelper.USER_CURRENT_TASK);
             }
 

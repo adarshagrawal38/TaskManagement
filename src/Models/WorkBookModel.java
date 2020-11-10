@@ -14,6 +14,8 @@ public class WorkBookModel {
     int workBookId;
     String completedDate = "";
     String remarks =  "";
+    String assignedDate;
+    boolean isSelected= false;
 
 
     public WorkBookModel() {
@@ -51,10 +53,26 @@ public class WorkBookModel {
         this.remarks = remarks;
     }
 
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
     public void decrementStage() {--stageNumber;}
     public void incrementStage(){++stageNumber;};
     public String getCompletedDate() {
         return completedDate;
+    }
+
+    public String getAssignedDate() {
+        return assignedDate;
+    }
+
+    public void setAssignedDate(String assignedDate) {
+        this.assignedDate = assignedDate;
     }
 
     public void setCompletedDate(String completedDate) {

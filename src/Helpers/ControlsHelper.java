@@ -21,6 +21,17 @@ public class ControlsHelper {
         return l;
 
     }
+    /*
+    * public static Label getLabel(String txt, double width){
+        Label l = new Label(txt);
+        l.setStyle("-fx-text-fill: white;");
+        l.setPrefWidth(width);
+        l.setPrefHeight(Constants.table_Hbox_height);
+        l.setAlignment(Pos.CENTER);
+        l.setFont(new Font(Constants.LABEL_SIZE));
+        return l;
+
+    }*/
     public static Label getLabel(String txt, double width){
         Label l = new Label(txt);
         l.setStyle("-fx-text-fill: white;");

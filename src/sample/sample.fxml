@@ -31,8 +31,8 @@
                      <Label fx:id="forgotPass_label" onMouseClicked="#forgotPasswordAction" styleClass="bold-label-small" text="Forgot Password" />
                      <HBox prefHeight="64.0" prefWidth="459.0" spacing="20.0">
                         <children>
-                           <Button mnemonicParsing="false" onAction="#logInAction" text="Log In" />
-                           <Button mnemonicParsing="false" onAction="#registerAction" text="Sign up" />
+                           <Button mnemonicParsing="false" onAction="#logInAction" prefWidth="165.0" text="Log In" />
+                           <Button mnemonicParsing="false" onAction="#registerAction" prefWidth="166.0" text="Sign up" />
                         </children>
                      </HBox>
                   </children>

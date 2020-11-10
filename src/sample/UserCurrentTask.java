@@ -24,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -35,14 +36,9 @@ public class UserCurrentTask extends Base {
 
 
     @FXML
-    protected Label userName_txt;
-
-    @FXML
     private ProgressBar progressBar;
 
 
-    @FXML
-    private VBox tableVbox;
 
     @FXML
     private JFXListView<HBox> listView;
@@ -53,20 +49,23 @@ public class UserCurrentTask extends Base {
     String userName = "";
 
     @FXML
-    private JFXComboBox<String> pendingCmb;
+    protected Label userName_txt;
+
+    ArrayList<String> allRemarks = new ArrayList<>();
+    ArrayList<String> columnHeader = new ArrayList<>();
 
     public void initialize() {
         checkMaximize();
         FileHelper fileHelper = new FileHelper();
-        userName = fileHelper.getUserName();
-        //userName_txt.setText(userName);
+        userName = USERNAME;
+
+        userName_txt.setText(userName);
 
         List<String> cmbList = new ArrayList<>();
         cmbList.add(Constants.PENDING);
         cmbList.add(Constants.COMPLETED);
 
-        pendingCmb.getItems().addAll(cmbList);
-        pendingCmb.getSelectionModel().select(Constants.PENDING);
+
         widthList.add(Constants.COLUMN_WIDTH-40);
         widthList.add(Constants.COLUMN_WIDTH);
         widthList.add(Constants.DESCRIPTION_WIDTH);
@@ -74,20 +73,30 @@ public class UserCurrentTask extends Base {
         widthList.add(Constants.DESCRIPTION_WIDTH);
         widthList.add(Constants.COLUMN_WIDTH);
         widthList.add(Constants.DESCRIPTION_WIDTH);
-
+        widthList.add(Constants.COLUMN_WIDTH);
+        widthList.add(Constants.COLUMN_WIDTH*2);
+        widthList.add(Constants.COLUMN_WIDTH);
+        widthList.add(Constants.COLUMN_WIDTH);
+        widthList.add(Constants.DESCRIPTION_WIDTH);
         progressBar.setStyle(Constants.PROGRESS_BAR);
 
-        ArrayList<String> columnHeader = new ArrayList<>();
+
         columnHeader.add("Sno.");
         columnHeader.add("Code");
         columnHeader.add("File Name");
+        columnHeader.add("Initiator");
         columnHeader.add("Work");
+        columnHeader.add("SubWork");
+        columnHeader.add("Year");
+        columnHeader.add("Period");
         columnHeader.add("Stage");
         columnHeader.add("Due Date");
+        columnHeader.add("Priority");
         columnHeader.add("Remarks");
 
-        HBox columnHeader_Hbox = TableHelper.getColumnHeader(columnHeader, widthList);
-        tableVbox.getChildren().add(columnHeader_Hbox);
+        /*HBox columnHeader_Hbox = TableHelper.getColumnHeader(columnHeader, widthList);
+        tableVbox.getChildren().add(columnHeader_Hbox);*/
+        allRemarks.addAll(databaseHelper.getRemarks());
 
         reloadData();
     }
@@ -101,7 +110,8 @@ public class UserCurrentTask extends Base {
     public void reloadData() {
 
         tableRow.clear();
-        String selectedTaskStatus = pendingCmb.getSelectionModel().getSelectedItem();
+
+        String selectedTaskStatus = Constants.PENDING;
         try{
             String query = "select distinct(task_id) from work_book where assigned_to = '" + userName + "'";
             ArrayList<Integer> assignedTask = new ArrayList<>();
@@ -131,12 +141,11 @@ public class UserCurrentTask extends Base {
                             resultSet.getInt("task_priority_position"),
                             resultSet.getString("task_status"),
                             0);
+                    taskModel.setSubWork(resultSet.getString("sub_work_des"));
 
                     String date = DateFormatChange.changeForMatTo_DD_MM_YY(taskModel.getDueDate());
                     taskModel.setDueDate(date);
                     System.out.println("Due date: " + date);
-
-
                     /*Now get work book data*/
                     WorkBookModel workBookModel = new WorkBookModel();
                     workBookModel.setStageNumber(resultSet.getInt("stage_num"));
@@ -150,7 +159,6 @@ public class UserCurrentTask extends Base {
                     if (compdate!=null) {
                         workBookModel.setCompletedDate(DateFormatChange.changeForMatTo_DD_MM_YY(compdate.toString()));
                     }
-
                     date = DateFormatChange.changeForMatTo_DD_MM_YY(workBookModel.getDueDate());
                     workBookModel.setDueDate(date);
 
@@ -205,6 +213,9 @@ public class UserCurrentTask extends Base {
         int index = 0;
         setProgressBar();
 
+        HBox columnHeader_Hbox = TableHelper.getColumnHeader(columnHeader, widthList);
+        listView.getItems().add(columnHeader_Hbox);
+
         for (TaskModel taskModel: tableRow) {
             System.out.println("TaskCode " + taskModel.getFileName() + " Priority: " + taskModel.getTaskPriorityPosition());
             int sno = index + 1;
@@ -212,10 +223,15 @@ public class UserCurrentTask extends Base {
             strings.add(0, String.valueOf(sno));
             strings.add(taskModel.getClientCode());
             strings.add(taskModel.getFileName());
+            strings.add(taskModel.getInitiator());
             strings.add(taskModel.getWorkDescription());
+            strings.add(taskModel.getSubWork());
+            strings.add(taskModel.getYear());
+            strings.add(taskModel.getPeriod());
             String stageDes = taskModel.getTaskWorkBook().get(0).getStageNumber() + " - " +  taskModel.getTaskWorkBook().get(0).getStageDes();
             strings.add(stageDes);
             strings.add(taskModel.getTaskWorkBook().get(0).getDueDate());
+            strings.add(taskModel.getPriority());
             strings.add(taskModel.getTaskWorkBook().get(0).getRemarks());
 
             HBox box = TableHelper.getTableRow(strings, widthList);
@@ -235,7 +251,16 @@ public class UserCurrentTask extends Base {
             JFXButton commentBtn = ControlsHelper.getTableButton();
             commentBtn.setId(String.valueOf(index));
             commentBtn.setGraphic(iconHelper.getIcon(IconHelper.ICON_COMMENT));
+            commentBtn.setTooltip(new Tooltip("Remarks"));
             box.getChildren().add(commentBtn);
+
+            JFXButton reverseBtn = ControlsHelper.getTableButton();
+            reverseBtn.setId(String.valueOf(index));
+            reverseBtn.setGraphic(iconHelper.getIcon(IconHelper.ICON_BACK));
+            reverseBtn.setTooltip(new Tooltip("Send back to Initiator"));
+            box.getChildren().add(reverseBtn);
+
+
 
             commentBtn.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -267,6 +292,20 @@ public class UserCurrentTask extends Base {
                     }
                 }
             });
+            reverseBtn.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    WorkBookModel workBookModel = taskModel.getTaskWorkBook().get(0);
+                    String init = taskModel.getInitiator();
+                    int wbId = workBookModel.getWorkBookId();
+
+                    String query = "update work_book set assigned_to='"+init+"' , assigned_date='"+ LocalDate.now()+"' where wb_id="+wbId;
+                    databaseHelper.insertQuery(query);
+                    displayToastMessage("Task Send Back to initiator");
+                    reloadData();
+
+                }
+            });
 
             listView.getItems().add(box);
             index++;
@@ -282,17 +321,21 @@ public class UserCurrentTask extends Base {
         reloadData();
     }
 
+
     public void commentDaiLog(int rowId) {
         Label label0 = new Label("Please enter remarks");
         label0.setFont(new Font("Segoi UI", Constants.LABEL_SIZE));
 
-        JFXTextField txt = new JFXTextField();
-        txt.setPromptText("Comments");
+        JFXComboBox<String> remarkList = new JFXComboBox<>();
+        remarkList.setPrefWidth(300);
+        remarkList.getItems().addAll(allRemarks);
+        remarkList.setEditable(true);
+        remarkList.setPromptText("Please select or make a new remark");
 
         JFXDialogLayout layout = new JFXDialogLayout();
         layout.setHeading(new Text(""));
 
-        VBox vBox = new VBox(label0, txt);
+        VBox vBox = new VBox(label0, remarkList);
         vBox.setSpacing(20);
         layout.setBody(vBox);
 
@@ -307,7 +350,11 @@ public class UserCurrentTask extends Base {
             @Override
             public void handle(ActionEvent event) {
 
-                String str = txt.getText();
+                String str = remarkList.getSelectionModel().getSelectedItem();
+                if (str == null) {
+                    displayToastMessage("Please select or enter remark");
+                    return;
+                }
                 int wb_id = tableRow.get(rowId).getTaskWorkBook().get(0).getWorkBookId();
                 String query = "update work_book set remark='"+str+ "' where wb_id = " + wb_id;
                 System.out.println(query);
@@ -339,7 +386,7 @@ public class UserCurrentTask extends Base {
         layout.setBody(vBox);
 
         JFXButton button = new JFXButton("Completed");
-        button.setPrefWidth(100);
+        button.setPrefWidth(200);
         button.getStyleClass().add("btn-dialog");
 
         layout.setActions(button);
@@ -348,12 +395,12 @@ public class UserCurrentTask extends Base {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
                 int workBookId = tableRow.get(rowId).getTaskWorkBook().get(0).getWorkBookId();
                 String query = "update work_book set completed_date = CURDATE(), stage_status = '"+ Constants.COMPLETED + "'  where wb_id = " + workBookId;
                 databaseHelper.insertQuery(query);
                 databaseHelper.updateTaskStatus(tableRow.get(rowId).getTaskId());
                 tableRow.remove(rowId);
+                reloadData();
                 populateListView();
                 dialog.close();
 

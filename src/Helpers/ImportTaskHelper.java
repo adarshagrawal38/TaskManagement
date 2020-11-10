@@ -118,9 +118,10 @@ public class ImportTaskHelper extends Base {
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
                     String cellValue = dataFormatter.formatCellValue(cell);
+                    data+=cellValue + " ";
                     strings.add(cellValue);
                 }
-                if (i>0) {
+                if (i>0 && !data.trim().equals("")) {
                         /*this is to avoid first row*/
                     //TaskModel taskModel = new TaskModel(strings);
                     tableRows.add(strings);
@@ -128,6 +129,7 @@ public class ImportTaskHelper extends Base {
                 }
                 i++;
             }
+            workbook.close();
             //System.out.println(dataList);
         }else {
             System.out.println("Not valid file");
